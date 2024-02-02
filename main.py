@@ -4,6 +4,7 @@ import threading
 from avoidance_rule.rule_base import RuleBasedController
 import sys
 
+
 def init_ros_node():
     '''node初始化並開一個thread跑ros node'''
     rclpy.init()
@@ -18,7 +19,6 @@ def main():
         
     node, ros_thread = init_ros_node()
     
-
     rule_controller = RuleBasedController(
         node, 
         './Simulated_Annealing_model/parameters.pkl',
