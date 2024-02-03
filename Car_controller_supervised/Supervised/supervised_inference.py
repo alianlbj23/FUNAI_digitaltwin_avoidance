@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from Supervised.entity.State import State
-
+from Supervised.config import *
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -28,10 +28,9 @@ class supervised_inference_node(Node):
             10
         )
 
-        self.input_size = 22 # input dimension 15
-        self.hidden_size = 64
-        self.num_layers = 1
-        self.fc_hidden_size = 128
+        self.input_size = 20 # input dimension 15
+        self.hidden_size = PARAMETER["hidden_size"] 
+        self.num_layers = PARAMETER["num_layers"] 
         self.lstm = nn.LSTM(self.input_size, self.hidden_size, self.num_layers, batch_first=True).to(device)
         self.fc1 = nn.Linear(self.hidden_size, 4).to(device) 
 
