@@ -45,6 +45,7 @@ class supervised_inference_node(Node):
         self.data = Float32MultiArray()
         vel = 3.0
         rotate_vel = 5.0
+        slow_vel = 0.5
         data = data[0]
         if data == 0.0:
             data = [vel, vel, vel, vel]
@@ -53,7 +54,7 @@ class supervised_inference_node(Node):
         elif data == 2.0:
             data = [rotate_vel, -rotate_vel,rotate_vel,-rotate_vel]
         elif data == 3.0:
-            data = [-vel, -vel, -vel, -vel]
+            data = [slow_vel, slow_vel, slow_vel, slow_vel]
         self.data.data = data
         
             
