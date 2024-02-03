@@ -10,3 +10,4 @@
 # Python bytecode
 __pycache__/
 *.pyc
+Simulated_Annealing_model/
