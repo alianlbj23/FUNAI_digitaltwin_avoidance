@@ -32,11 +32,15 @@ class supervised_inference_node(Node):
         self.hidden_size = PARAMETER["hidden_size"] 
         self.num_layers = PARAMETER["num_layers"] 
         self.lstm = nn.LSTM(self.input_size, self.hidden_size, self.num_layers, batch_first=True).to(device)
-        self.fc1 = nn.Linear(self.hidden_size, 4).to(device) 
+        self.linear = nn.Linear(self.hidden_size, 4).to(device) 
 
         self.model_path = './Supervised_Model/best_model.pth'
         self.model_weights = torch.load(self.model_path, map_location=device)
         self.lstm.load_state_dict(self.model_weights)
+
+        self.linear_path = './Supervised_Model/best_model_linear.pth'
+        self.linear_weights = torch.load(self.linear_path, map_location=device)
+        self.linear.load_state_dict(self.linear_weights)
 
         self.lstm.eval()
         
@@ -45,7 +49,7 @@ class supervised_inference_node(Node):
         self.data = Float32MultiArray()
         vel = 3.0
         rotate_vel = 5.0
-        slow_vel = 0.5
+        slow_vel = 1.5
         data = data[0]
         if data == 0.0:
             data = [vel, vel, vel, vel]
@@ -77,7 +81,7 @@ class supervised_inference_node(Node):
                 lstm_output, _ = self.lstm(test_input_tensor, (h0, c0))
 
                 lstm_output_last = lstm_output[:, -1, :]
-                predicted_output = self.fc1(lstm_output_last)
+                predicted_output = self.linear(lstm_output_last)
 
                 probabilities = F.softmax(predicted_output, dim=-1)
                 print("Softmax probabilities:", probabilities)

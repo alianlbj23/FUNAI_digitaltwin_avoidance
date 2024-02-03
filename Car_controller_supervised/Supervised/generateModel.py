@@ -139,8 +139,8 @@ model_directory = './Supervised_Model/'
 if not os.path.exists(model_directory):
     os.makedirs(model_directory)
 
-torch.save(best_model, './Supervised_Model/best_model.pth')
-
+torch.save(lstm.state_dict(), './Supervised_Model/best_model.pth')
+torch.save(linear.state_dict(), './Supervised_Model/best_model_linear.pth')
 
 
 
