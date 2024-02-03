@@ -9,6 +9,8 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.init as init
 import matplotlib.pyplot as plt
+from Supervised.config import *
+
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
@@ -48,8 +50,8 @@ Y = data_tensor[:, -4:]
 
 input_size = X.size(-1)  
 print(input_size)
-hidden_size = 64  
-num_layers = 1  
+hidden_size = PARAMETER["hidden_size"] 
+num_layers = PARAMETER["num_layers"] 
 lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True).to(device)
 linear = nn.Linear(hidden_size, Y.size(-1)).to(device)  
 
@@ -62,8 +64,8 @@ optimizer = torch.optim.Adam(list(lstm.parameters()) + list(linear.parameters())
 best_model = None
 lowest_loss = float('inf')
 
-batch_size = 64
-num_epochs = 20
+batch_size = PARAMETER["batch_size"] 
+num_epochs = PARAMETER["num_epochs"] 
 
 training_losses = []
 testing_losses = []
