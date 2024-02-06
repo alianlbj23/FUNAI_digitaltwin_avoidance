@@ -1,14 +1,11 @@
 #使用lstm
 import os
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset, DataLoader, TensorDataset
 import torch
-import numpy as np
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.init as init
-import matplotlib.pyplot as plt
 from Supervised.config import *
 
 
